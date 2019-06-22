@@ -15,7 +15,29 @@ namespace TestNinja.UnitTests
             //act
             var res = reservition.CanBeCancelledBy(new User { IsAdmin = true});
             //assert
-            Assert.AreEqual(res, true);
+            Assert.IsTrue(res);
+        }
+        [TestMethod]
+        public void CanBeCancelledBy_SameUserCancellingReservation_ReturnsTrue()
+        {
+            //arrance
+            var user = new User { IsAdmin = false };
+            var reservition = new Reservation() { MadeBy = user};
+            //act
+            var res = reservition.CanBeCancelledBy(user);
+            //assert
+            Assert.IsTrue(res);
+        }
+
+        [TestMethod]
+        public void CanBeCancelledBy_AnotherUserCancellingReservation_ReturnFalse()
+        {
+            //arrance
+            var reservition = new Reservation() { MadeBy = new User() };
+            //act
+            var res = reservition.CanBeCancelledBy(new User());
+            //assert
+            Assert.IsFalse(res);
         }
     }
 }
