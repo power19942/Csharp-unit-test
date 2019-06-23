@@ -1,3 +1,4 @@
+using System.IO;
 using NUnit.Framework;
 using TestNinja.Fundamentals;
 
@@ -10,12 +11,13 @@ namespace TestNinja.UnitTests
         private Math _math;
 
         [SetUp]
-        void Setup()
+        public void Setup()
         {
             _math = new Math();
         }
         
         [Test]
+        [Ignore("ignore this test for now")]
         public void Add_WhenCalled_ReturnTheSumOfArgument()
         {
             //arrange
@@ -27,36 +29,18 @@ namespace TestNinja.UnitTests
         }
         
         [Test]
-        public void Max_FirstArgumentIsGreater_ReturnFirstArgument()
+        [TestCase(2,1,2)]
+        [TestCase(1,2,2)]
+        [TestCase(2,2,2)]
+        public void Max_FirstArgumentIsGreater_ReturnTheGreaterArgument(int a,int b,int expectedResult)
         {
             //arrange
 //            var math = new Math();
             //act
-            var res = _math.Max(2, 1);
+            var res = _math.Max(a, b);
             //assert
-            Assert.That(res,Is.EqualTo(2));
+            Assert.That(res,Is.EqualTo(expectedResult));
         }
-        
-        [Test]
-        public void Max_SecondArgumentIsGreater_ReturnSecondArgument()
-        {
-            //arrange
-//            var math = new Math();
-            //act
-            var res = _math.Max(1, 2);
-            //assert
-            Assert.That(res,Is.EqualTo(2));
-        }
-        
-        [Test]
-        public void Max_ArgumentsAreEqual_ReturnTheSameArgument()
-        {
-            //arrange
-//            var math = new Math();
-            //act
-            var res = _math.Max(3, 3);
-            //assert
-            Assert.That(res,Is.EqualTo(3));
-        }
+
     }
 }
