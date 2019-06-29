@@ -5,6 +5,10 @@ namespace TestNinja.Fundamentals
 {
     public class ErrorLogger
     {
+        public ErrorLogger()
+        {
+            this.ErrorLogged += (s, a) => { Console.WriteLine(a); };
+        }
         public string LastError { get; set; }
 
         public event EventHandler<Guid> ErrorLogged; 

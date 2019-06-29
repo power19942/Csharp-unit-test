@@ -8,6 +8,7 @@ namespace TestNinja.UnitTests
     {
 
         [Test]
+        [Ignore("ignore fore now")]
         public void FormatAsBold_WhenCalled_ShouldEncloseStringWithStrongElement()
         {
             var formatter = new HtmlFormatter();
