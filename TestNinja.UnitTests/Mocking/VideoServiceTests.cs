@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TestNinja.Mocking;
+using Moq;
 
 namespace TestNinja.UnitTests.Mocking
 {
@@ -14,7 +15,9 @@ namespace TestNinja.UnitTests.Mocking
         [Test]
         public void ReadVideoTitle_EmptyFile_ReturnError()
         {
-            var service = new VideoService(new FakeFileReader());
+            var fileReader = new Mock<IFileReader>();
+            fileReader.Setup(fr=> fr.Read("video.txt")).Returns("");
+            var service = new VideoService(fileReader.Object);
             var res = service.ReadVideoTitle();
             Assert.That(res, Does.Contain("error").IgnoreCase);
         }
